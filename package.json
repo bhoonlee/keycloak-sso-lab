@@ -1,0 +1,15 @@
+{
+  "name": "keycloak-sso-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "keycloak-js": "26.2.5"
+  }
+}

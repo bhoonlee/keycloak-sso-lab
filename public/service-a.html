@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>학습 관리 · 서비스 A</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/tasks.js"></script>
+</head>
+<body data-client="service-a">
+  <header class="top">
+    <a class="brand" href="/">서비스 A <span>학습 관리</span></a>
+    <nav id="session" aria-label="서비스 메뉴" hidden>
+      <span class="identity"><span class="dot"></span><strong id="username"></strong> 로그인</span>
+      <a href="http://localhost:5174/">암호화 메모</a>
+      <button type="button" class="secondary" id="logout">SSO 로그아웃</button>
+    </nav>
+  </header>
+  <main>
+    <h1>학습 관리</h1>
+    <p class="intro">공부할 일을 등록하고, 끝낸 항목을 체크하세요.</p>
+    <p id="auth-status" role="status">Keycloak 인증을 확인하고 있어요.</p>
+    <section class="panel" id="app" aria-label="학습 할 일" hidden>
+      <form id="task-form" class="inline-form">
+        <label for="task">새 할 일</label>
+        <div class="field-row">
+          <input id="task" name="task" required maxlength="120" placeholder="예: OIDC 인증 흐름 복습">
+          <button type="submit">추가</button>
+        </div>
+      </form>
+      <p id="task-message" role="status"></p>
+      <div class="section-line"><h2>할 일 목록</h2><span id="task-count"></span></div>
+      <p id="empty">아직 등록된 할 일이 없어요.</p>
+      <ul class="list" id="tasks"></ul>
+    </section>
+  </main>
+  <footer><span>service-a</span><span>Keycloak · sso-lab</span></footer>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>암호화 메모 · 서비스 B</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/notes.js"></script>
+</head>
+<body data-client="service-b">
+  <header class="top">
+    <a class="brand" href="/">서비스 B <span>암호화 메모</span></a>
+    <nav id="session" aria-label="서비스 메뉴" hidden>
+      <span class="identity"><span class="dot"></span><strong id="username"></strong> 로그인</span>
+      <a href="http://localhost:5173/">학습 관리</a>
+      <button type="button" class="secondary" id="logout">SSO 로그아웃</button>
+    </nav>
+  </header>
+  <main>
+    <h1>암호화 메모</h1>
+    <p class="intro">메모를 브라우저에서 암호화하고 별도의 암호로 다시 열 수 있어요.</p>
+    <p id="auth-status" role="status">Keycloak 인증을 확인하고 있어요.</p>
+    <div class="grid" id="app" hidden>
+      <section class="panel" aria-labelledby="new-note">
+        <h2 id="new-note">새 메모</h2>
+        <form id="note-form">
+          <label for="note">메모 내용</label>
+          <textarea id="note" required maxlength="2000" rows="6" placeholder="저장할 메모를 입력하세요"></textarea>
+          <label for="passphrase">메모 암호</label>
+          <input id="passphrase" type="password" autocomplete="new-password" required minlength="12" maxlength="128">
+          <p class="hint">12자 이상. Keycloak 로그인 비밀번호와 다른 값을 사용하세요.</p>
+          <button type="submit">암호화하여 저장</button>
+        </form>
+        <p id="note-message" role="status"></p>
+      </section>
+      <section class="panel" aria-labelledby="saved-notes">
+        <h2 id="saved-notes">저장된 메모</h2>
+        <p id="empty">아직 암호화한 메모가 없어요.</p>
+        <ul class="list" id="notes"></ul>
+      </section>
+    </div>
+  </main>
+  <footer><span>service-b</span><span>AES-GCM · PBKDF2</span><span>Keycloak · sso-lab</span></footer>
+  <template id="note-template">
+    <li>
+      <details name="saved-notes">
+        <summary><time></time></summary>
+        <div class="note-details">
+          <details>
+            <summary>저장된 암호문 보기</summary>
+            <pre class="ciphertext"></pre>
+          </details>
+          <form class="decrypt-form">
+            <label>메모 암호<input type="password" autocomplete="off" required maxlength="128"></label>
+            <button type="submit">복호화</button>
+          </form>
+          <p class="result" role="status"></p>
+          <pre class="plaintext" hidden></pre>
+          <button type="button" class="delete secondary">삭제</button>
+          <form class="delete-form" hidden>
+            <label>삭제할 메모의 암호<input type="password" autocomplete="off" required maxlength="128"></label>
+            <p class="hint">삭제한 메모는 복구할 수 없어요.</p>
+            <button type="submit">암호 확인 후 삭제</button>
+            <button type="button" class="cancel-delete secondary">취소</button>
+            <p class="delete-result error" role="status"></p>
+          </form>
+        </div>
+      </details>
+    </li>
+  </template>
+</body>
+</html>
